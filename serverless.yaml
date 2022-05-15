@@ -1,2 +1,4 @@
 myNextApplication:
   component: "@sls-next/serverless-component"
+  inputs:
+    roleArn: "arn:aws:iam::680080015686:role/DefaultLambaNextAppRole"
