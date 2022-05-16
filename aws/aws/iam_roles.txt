@@ -1,0 +1,82 @@
+# NEXTJS AWS ROLES
+
+# role: DefaultLambaNextAppRole
+Policies:
+- AmazonSQSFullAccess
+- AWSLambdaExecute
+
+Trust Relationship:
+- edgelambda.amazonaws.com
+- lambda.amazonaws.com
+
+# Role: NextAppDeployRole
+
+Create Policy nextjs-deploy-policy:
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "1",
+            "Effect": "Allow",
+            "Action": [
+                "cloudfront:CreateCloudFrontOriginAccessIdentity",
+                "cloudfront:CreateDistribution",
+                "cloudfront:CreateInvalidation",
+                "cloudfront:GetDistribution",
+                "cloudfront:GetDistributionConfig",
+                "cloudfront:ListCloudFrontOriginAccessIdentities",
+                "cloudfront:ListDistributions",
+                "cloudfront:ListDistributionsByLambdaFunction",
+                "cloudfront:ListDistributionsByWebACLId",
+                "cloudfront:ListFieldLevelEncryptionConfigs",
+                "cloudfront:ListFieldLevelEncryptionProfiles",
+                "cloudfront:ListInvalidations",
+                "cloudfront:ListPublicKeys",
+                "cloudfront:ListStreamingDistributions",
+                "cloudfront:UpdateDistribution",
+                "cloudfront:TagResource",
+                "cloudfront:UntagResource",
+                "cloudfront:ListTagsForResource",
+                "lambda:CreateFunction",
+                "lambda:EnableReplication",
+                "lambda:DeleteFunction",
+                "lambda:GetFunction",
+                "lambda:GetFunctionConfiguration",
+                "lambda:PublishVersion",
+                "lambda:UpdateFunctionCode",
+                "lambda:UpdateFunctionConfiguration",
+                "lambda:ListTags",
+                "lambda:TagResource",
+                "lambda:UntagResource",
+                "s3:CreateBucket",
+                "s3:GetAccelerateConfiguration",
+                "s3:GetObject",
+                "s3:ListBucket",
+                "s3:PutAccelerateConfiguration",
+                "s3:PutBucketPolicy",
+                "s3:PutObject",
+                "s3:PutBucketTagging",
+                "s3:GetBucketTagging",
+                "lambda:ListEventSourceMappings",
+                "lambda:CreateEventSourceMapping",
+                "sqs:CreateQueue",
+                "sqs:DeleteQueue",
+                "sqs:GetQueueAttributes",
+                "sqs:SetQueueAttributes"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Sid": "2",
+            "Effect": "Allow",
+            "Action": [
+                "iam:GetRole",
+                "iam:PassRole"
+            ],
+            "Resource": "arn:aws:iam::<aws_account>:role/DefaultLambaNextAppRole"
+        }
+    ]
+}
+
+Trust Relationship:
+- ec2.amazonaws.com
